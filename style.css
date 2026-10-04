@@ -2,7 +2,7 @@
 * {
     margin: 0;                 /* Remove default outer spacing for all elements */
     padding: 0;                /* Remove default inner spacing for all elements */
-    box-sizing: border-box;    /* Include padding and border in the element’s total width and height */
+    box-sizing: border-box;    /* Include padding and border in the element's total width and height */
 }
 
 /* Global CSS variables (custom properties) for colors and theme */
@@ -39,6 +39,7 @@ h1 {
 /* Container that limits the width of the envelope area */
 .container {
     width: 400px;                        /* Fixed width for desktop view */
+    position: relative;                  /* Position relative for the envelope */
 }
 
 /* Main envelope wrapper that holds the envelope and applies background and shadow */
@@ -119,13 +120,19 @@ h1 {
     font-family: "Gill Sans", Calibri, sans-serif; /* Clean, readable font */
     color: var(--text);                    /* Use main text color variable */
     text-align: left;                      /* Align text to the left for easier reading */
-    font-size: 12px;                       /* Small base font size */
+    font-size: 24px;                       /* Increased font size (2x from 12px) */
     border: 3px dotted var(--text);        /* Dotted border to mimic a decorative frame */
     padding: 10px;                         /* Inner spacing around the text */
     height: 100%;                          /* Occupy the full height of the letter */
-    line-height: 14px;                     /* Line spacing for readability */
+    line-height: 28px;                     /* Line spacing for readability */
     cursor: pointer;                       /* Pointer cursor indicates that content is clickable */
     overflow-Y: scroll;                    /* Enable vertical scrolling when content overflows */
+    font-weight: 700;                      /* Make all text bold */
+}
+
+.content strong,
+.content p {
+    font-weight: 700;                      /* Force strong and paragraph text to remain bold */
 }
 
 /* Circular "sticker" in the middle of the envelope that acts like a seal */
@@ -237,5 +244,10 @@ h1 {
         border-top:150px solid var(--envelop-flap); /* Adjust flap height */
         border-right: 150px solid transparent;      /* Adjust right side for proper triangle */
         border-left: 150px solid transparent;       /* Adjust left side for proper triangle */
+    }
+
+    .content {
+        font-size: 18px;                   /* Maintain 2x scaling on mobile */
+        line-height: 22px;                 /* Adjusted line height for mobile */
     }
 }
