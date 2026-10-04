@@ -4,8 +4,54 @@ const wrapper = document.querySelector(".envelope-wrapper");
 // Select the letter element (the paper inside the envelope)
 const letter = document.querySelector(".letter");
 
+// Select the music player elements
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+// Auto-play music when the page loads if allowed by the browser
+window.addEventListener("load", () => {
+    const tryPlay = async () => {
+        try {
+            await bgMusic.play();
+            musicToggle.classList.add("playing");
+        } catch (error) {
+            // User interaction is required in some browsers.
+            // We will retry on the first click.
+            document.addEventListener("click", () => {
+                bgMusic.play();
+                musicToggle.classList.add("playing");
+            }, { once: true });
+        }
+    };
+
+    tryPlay();
+});
+
+// Toggle music on click
+musicToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.classList.add("playing");
+    } else {
+        bgMusic.pause();
+        musicToggle.classList.remove("playing");
+    }
+});
+
+// Loop music when it ends
+bgMusic.addEventListener("ended", () => {
+    bgMusic.currentTime = 0;
+    bgMusic.play();
+});
+
 // Listen for any click event on the entire document
 document.addEventListener("click", (e) => {
+    if (e.target === musicToggle || e.target.closest("#musicToggle")) {
+        return;
+    }
+
     // First condition: check if the user clicked on one of the envelope parts
     if (
         e.target.matches(".envelope") ||     // Clicked on an element with class "envelope" (currently not in HTML)
